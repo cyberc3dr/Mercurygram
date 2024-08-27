@@ -16,7 +16,7 @@
 #include <inttypes.h>
 #include "ByteArray.h"
 
-#define USE_DEBUG_SESSION false
+#define USE_DEBUG_SESSION true
 #define READ_BUFFER_SIZE 1024 * 1024 * 2
 //#define DEBUG_VERSION
 #define PFS_ENABLED 1

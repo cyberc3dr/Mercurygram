@@ -438,7 +438,7 @@ void ConnectionsManager::loadConfig() {
             RAND_bytes((uint8_t *) &pushSessionId, 8);
         }
         if (currentDatacenterId == 0) {
-            currentDatacenterId = 2;
+            currentDatacenterId = 1;
         }
         saveConfig();
     }
@@ -708,7 +708,7 @@ void ConnectionsManager::onConnectionClosed(Connection *connection, int reason) 
                         } else {
                             requestingSecondAddress = 0;
                         }
-                        delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
+                        // delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
                     } else {
                         if (LOGS_ENABLED) DEBUG_D("connection has usefull data, don't request anything");
                     }
@@ -2424,7 +2424,7 @@ void ConnectionsManager::processRequestQueue(uint32_t connectionTypes, uint32_t 
         Datacenter *requestDatacenter = getDatacenterWithId(datacenterId);
         if (requestDatacenter == nullptr) {
             if (std::find(unknownDatacenterIds.begin(), unknownDatacenterIds.end(), datacenterId) == unknownDatacenterIds.end()) {
-                unknownDatacenterIds.push_back(datacenterId);
+                // unknownDatacenterIds.push_back(datacenterId);
             }
             iter++;
             continue;
@@ -2674,7 +2674,7 @@ void ConnectionsManager::processRequestQueue(uint32_t connectionTypes, uint32_t 
         Datacenter *requestDatacenter = getDatacenterWithId(datacenterId);
         if (requestDatacenter == nullptr) {
             if (std::find(unknownDatacenterIds.begin(), unknownDatacenterIds.end(), datacenterId) == unknownDatacenterIds.end()) {
-                unknownDatacenterIds.push_back(datacenterId);
+                // unknownDatacenterIds.push_back(datacenterId);
             }
             if (LOGS_ENABLED)
                 DEBUG_D("skip queue, token = %d: unknown dc", request->requestToken);
@@ -3524,10 +3524,10 @@ void ConnectionsManager::applyDnsConfig(NativeByteBuffer *buffer, std::string ph
             }
             if (requestingSecondAddress == 1) {
                 requestingSecondAddress = 2;
-                delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
+                // delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
             } else if (requestingSecondAddress == 0) {
                 requestingSecondAddress = 1;
-                delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
+                // delegate->onRequestNewServerIpAndPort(requestingSecondAddress, instanceNum);
             } else {
                 requestingSecondAddress = 0;
             }
